@@ -8,7 +8,7 @@ class Item:
         self.w = w
         self.h = h
         self.img = loadImage(path +"/images/"+img+".png")
-        self.c = c
+        self.c = c #c is type - 1 for general, 2 for plastic/can, 3 for paper 
         self.vx = 0
         self.vy = 0
         
@@ -64,17 +64,18 @@ class Game:
         self.w=w
         self.h=h
         # Creating an items list for level 1
-        Can=Item(0,0,70,70,"can","plastic and cans")
-        Water=Item(60,0,70,70,"alain","plastic and cans")
-        Chopsticks=Item(120,0,70,70,"chopsticks","general")
-        Tissue=Item(180,0,70,70,"tissue","general")
-        self.items=[Can,Water,Chopsticks,Tissue]
+        can = Item(0,0,70,70,"can",2)
+        water = Item(60,0,70,70,"alain",2)
+        chopsticks=Item(120,0,70,70,"chopsticks",1)
+        tissue=Item(180,0,70,70,"tissue",1)
+        self.items=[can,water,chopsticks,tissue]
         self.itemsClicked=None
         
     def display(self):
         for item in self.items:
             item.display()
             item.update()
+
 game=Game(800,600)
 
 def draw():
