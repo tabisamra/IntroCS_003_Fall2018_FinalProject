@@ -4,7 +4,9 @@ path=os.getcwd()
 class Item:
     def __init__(self,x,y,w,h,img,c):
         self.x = x
+        self.x_o = x
         self.y = y
+        self.y_o = y
         self.w = w
         self.h = h
         self.img = loadImage(path +"/images/"+img+".png")
@@ -35,19 +37,25 @@ class Item:
         self.checkWin()
     
     def checkWin(self):
-        if self.y > 200:
+        if self.y > 250:
             if self.c == 1 and 0 <= self.x <= 270:
                 #no longer display object -- how?
                 game.points += 1 #add one point only -- how?
+                game.items.remove(self)
+            elif self.x > 270:
+                self.x = self.x_o
+                self.y = self.y_o
                 # print(game.points)
             if self.c == 2 and 270<self.x<= 540:
                 #no longer display object -- how?
                 game.points += 1 #add one point only -- how?
+                game.items.remove(self)
                 # print(game.points)
             if self.c == 3 and 540 < self.x <=800:
                 #no longer display object -- how?
                 game.points += 1 #add one point only -- how?
                 # print(game.points)
+                game.items.remove(self)
 #add img
 overBox = False
 locked = False
@@ -67,8 +75,10 @@ def mousePressed(): #make sure this exists
 
 def mouseDragged():
     if game.itemClicked is not None:
-        game.itemClicked.vx=mouseX-pmouseX # previous mouseX so that it saves the change in X value
-        game.itemClicked.vy=mouseY-pmouseY
+        # game.itemClicked.x=mouseX # previous mouseX so that it saves the change in X value
+        # game.itemClicked.y=mouseY
+        game.itemClicked.vx=2*(mouseX-pmouseX) # previous mouseX so that it saves the change in X value
+        game.itemClicked.vy=2*(mouseY-pmouseY)
     
 def mouseReleased(): #make sure this exists
   locked = False
@@ -85,13 +95,13 @@ class Game:
         self.items=[can,water,chopsticks,tissue]
         self.itemsClicked=None
         self.points = 0
+        self.bg = loadImage(path +"/images/"+"trashcan.png")
         
     def display(self):
+        image(self.bg,0,0)
         for item in self.items:
             item.display()
             item.update()
-        image(loadImage(path +"/images/"+"trashcan.png"),800,600)
-
 game=Game(800,600)
 
 def draw():
@@ -100,6 +110,6 @@ def draw():
     
 def setup():
     size(800,600)
-    image(loadImage(path +"/images/"+"trashcan.png"),800,600,0,0)
+    
     bx = width/2
     by = height/2
