@@ -16,8 +16,8 @@ class Item:
         image(self.img,self.x,self.y,self.w,self.h)
         #dragging functionality coded below. translated from java by tom. error checking for braces by jude.
 
-        #replace boxSize with image size
-        if mouseX > bx-boxSize and mouseX < bx+boxSize and mouseY > by-boxSize and mouseY < by+boxSize:
+        #replace objSize with image size
+        if mouseX > bx-objSize and mouseX < bx+objSize and mouseY > by-objSize and mouseY < by+objSize:
             overBox = True
         if locked == False:
             stroke(255)
@@ -32,8 +32,22 @@ class Item:
         self.y += self.vy
         self.vx=0 # so the item stops moving
         self.vy=0
-        
-
+        self.checkWin()
+    
+    def checkWin(self):
+        if self.y > 200:
+            if self.c == 1 and 0 <= self.x <= 270:
+                #no longer display object -- how?
+                game.points += 1 #add one point only -- how?
+                # print(game.points)
+            if self.c == 2 and 270<self.x<= 540:
+                #no longer display object -- how?
+                game.points += 1 #add one point only -- how?
+                # print(game.points)
+            if self.c == 3 and 540 < self.x <=800:
+                #no longer display object -- how?
+                game.points += 1 #add one point only -- how?
+                # print(game.points)
 #add img
 overBox = False
 locked = False
@@ -41,7 +55,7 @@ xOffset = 0.0
 yOffset = 0.0
 bx= 0 #change this
 by= 0 #change this
-boxSize=0 #change this
+objSize=0 #change this
 
 
 def mousePressed(): #make sure this exists
@@ -70,11 +84,13 @@ class Game:
         tissue=Item(180,0,70,70,"tissue",1)
         self.items=[can,water,chopsticks,tissue]
         self.itemsClicked=None
+        self.points = 0
         
     def display(self):
         for item in self.items:
             item.display()
             item.update()
+        image(loadImage(path +"/images/"+"trashcan.png"),800,600)
 
 game=Game(800,600)
 
@@ -84,6 +100,6 @@ def draw():
     
 def setup():
     size(800,600)
-    background(0)
+    image(loadImage(path +"/images/"+"trashcan.png"),800,600,0,0)
     bx = width/2
     by = height/2
