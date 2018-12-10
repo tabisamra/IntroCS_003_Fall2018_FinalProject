@@ -39,23 +39,23 @@ class Item:
     def checkWin(self):
         if self.y > 250:
             if self.c == 1 and 0 <= self.x <= 270:
-                #no longer display object -- how?
-                game.points += 1 #add one point only -- how?
+                game.points += 1
                 game.items.remove(self)
-            elif self.x > 270:
+            elif self.c == 1 and self.x > 270:
                 self.x = self.x_o
                 self.y = self.y_o
-                # print(game.points)
             if self.c == 2 and 270<self.x<= 540:
-                #no longer display object -- how?
                 game.points += 1 #add one point only -- how?
                 game.items.remove(self)
-                # print(game.points)
+            elif self.c == 2 and (0< self.x <= 270 or self.x>540):
+                self.x = self.x_o
+                self.y = self.y_o
             if self.c == 3 and 540 < self.x <=800:
-                #no longer display object -- how?
                 game.points += 1 #add one point only -- how?
-                # print(game.points)
                 game.items.remove(self)
+            elif self.c == 3 and (self.x < 540):
+                self.x = self.x_o
+                self.y = self.y_o
 #add img
 overBox = False
 locked = False
