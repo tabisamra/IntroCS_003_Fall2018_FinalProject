@@ -1,3 +1,9 @@
+## Developers: Jude AlSharif and Tom Abi Samra
+## The purpose of this game is to teach NYUAD community members how to recycle efficiently on campus.
+## We used images from the internet and illustrations by the team.
+## Click run in Processing 3.py to start the game
+
+
 import os
 add_library("minim")
 path=os.getcwd()
